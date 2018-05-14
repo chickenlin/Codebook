@@ -1,0 +1,11 @@
+注意事項
+  ※編譯參數
+      -std=c++11
+      -Wall
+      -Wextra
+      -Wshadow
+  ※int 都開long long
+  ※stack size
+  ※前面的水題要兩個人一起打一起看，不要一個人自己刻
+  ※submit後就影印3份
+  ※測機的時候要測影印機
