@@ -1,0 +1,58 @@
+1.  Leap year O(1)
+    (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))
+2.  Fast Exponentiation O(log(exp))
+    Fermat’s little theorem: 若p 是質數，則a^(p-1) ≡ 1 (mod p)
+    ll fast_pow(ll a, ll b, ll P) {
+        // b %= (P - 1)
+        ll ans = 1;
+        ll base = a % P;
+        while (b) {
+            if (b & 1)
+            ans = ans * base % P;
+            base = base * base % P;
+            b >>= 1;
+        }
+        return ans;
+    }
+3.  Mod Inverse O(logn)
+    Case 1: gcd(a;m) = 1: ax + my = gcd(a, m) = 1 (use ext_gcd)
+    Case 2: p is prime: a^(p-2) ≡ a^(-1) mod p
+4.  GCD O(log(min(a + b)))
+    注意負數的case! C++ 是看被除數決定正負號的。
+    ll gcd(ll a, ll b)
+    {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+5.  Extended Euclidean Algorithm GCD O(log(min(a + b)))
+    Bezout identity ax + by = gcd(a, b), where |x|<=b/d and |y|<=a/d
+    
+    ll extgcd(ll a, ll b, ll& x, ll&y) {
+        if (b == 0) {
+            x = 1;
+            y = 0;
+            return a;
+        }
+        else {
+            ll d = extgcd(b, a % b, y, x);
+            y -= (a / b) * x;
+            return d;
+        }
+    }
+
+6.  Prime Generator O(nloglogn)
+
+    const ll MAX_NUM = 1e6; // 要是合數
+    bool is_prime[MAX_NUM];
+    vector<ll> primes;
+
+    void init_primes() {
+        fill(is_prime, is_prime + MAX_NUM, true);
+        is_prime[0] = is_prime[1] = false;
+        for (ll i = 2; i < MAX_NUM; i++) {
+            if (is_prime[i]) {
+                primes.push_back(i);
+                for (ll j = i * i; j < MAX_NUM; j += i)
+                    is_prime[j] = false;
+            }
+        }
+    }
